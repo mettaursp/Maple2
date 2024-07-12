@@ -117,21 +117,20 @@ var modelReaders = new List<PrefixedM2dReader> {
     new("/model/character/", Path.Combine(ms2Root, "Resource/Model/Character.m2d")),
     new("/model/textures/", Path.Combine(ms2Root, "Resource/Model/Textures.m2d")),
 };
-
-UpdateDatabase(metadataContext, new AdditionalEffectMapper(xmlReader));
-UpdateDatabase(metadataContext, new AnimationMapper(xmlReader));
-UpdateDatabase(metadataContext, new ItemMapper(xmlReader));
-UpdateDatabase(metadataContext, new NpcMapper(xmlReader));
-UpdateDatabase(metadataContext, new PetMapper(xmlReader));
+//UpdateDatabase(metadataContext, new AdditionalEffectMapper(xmlReader));
+//UpdateDatabase(metadataContext, new AnimationMapper(xmlReader));
+//UpdateDatabase(metadataContext, new ItemMapper(xmlReader));
+//UpdateDatabase(metadataContext, new NpcMapper(xmlReader));
+//UpdateDatabase(metadataContext, new PetMapper(xmlReader));
 UpdateDatabase(metadataContext, new MapMapper(xmlReader));
-UpdateDatabase(metadataContext, new UgcMapMapper(xmlReader));
-UpdateDatabase(metadataContext, new ExportedUgcMapMapper(xmlReader));
-UpdateDatabase(metadataContext, new QuestMapper(xmlReader));
-UpdateDatabase(metadataContext, new RideMapper(xmlReader));
-UpdateDatabase(metadataContext, new ScriptMapper(xmlReader));
-UpdateDatabase(metadataContext, new SkillMapper(xmlReader));
-UpdateDatabase(metadataContext, new TableMapper(xmlReader));
-UpdateDatabase(metadataContext, new AchievementMapper(xmlReader));
+//UpdateDatabase(metadataContext, new UgcMapMapper(xmlReader));
+//UpdateDatabase(metadataContext, new ExportedUgcMapMapper(xmlReader));
+//UpdateDatabase(metadataContext, new QuestMapper(xmlReader));
+//UpdateDatabase(metadataContext, new RideMapper(xmlReader));
+//UpdateDatabase(metadataContext, new ScriptMapper(xmlReader));
+//UpdateDatabase(metadataContext, new SkillMapper(xmlReader));
+//UpdateDatabase(metadataContext, new TableMapper(xmlReader));
+//UpdateDatabase(metadataContext, new AchievementMapper(xmlReader));
 
 NifParserHelper.ParseNif(modelReaders);
 
@@ -139,12 +138,12 @@ UpdateDatabase(metadataContext, new NifMapper());
 UpdateDatabase(metadataContext, new NxsMeshMapper());
 
 UpdateDatabase(metadataContext, new MapEntityMapper(metadataContext, exportedReader));
-if (!skipNavmesh) {
-    _ = new NavMeshMapper(metadataContext, exportedReader);
-}
-
-UpdateDatabase(metadataContext, new ServerTableMapper(serverReader));
-UpdateDatabase(metadataContext, new AiMapper(serverReader));
+//if (!skipNavmesh) {
+//    _ = new NavMeshMapper(metadataContext, exportedReader);
+//}
+//
+//UpdateDatabase(metadataContext, new ServerTableMapper(serverReader));
+//UpdateDatabase(metadataContext, new AiMapper(serverReader));
 
 // new MusicScoreParser(xmlReader).Parse().ToList();
 // new ScriptParser(xmlReader).ParseNpc().ToList();
