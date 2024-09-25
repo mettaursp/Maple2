@@ -1,5 +1,6 @@
 ﻿using Maple2.Database.Extensions;
 using Maple2.Database.Model.Metadata;
+using Maple2.Model.Game.Field;
 using Maple2.Model.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -27,6 +28,7 @@ public sealed class MetadataContext(DbContextOptions options) : DbContext(option
     public DbSet<ServerTableMetadata> ServerTableMetadata { get; set; } = null!;
     public DbSet<NifMetadata> NifMetadata { get; set; } = null!;
     public DbSet<NxsMeshMetadata> NXSMeshMetadata { get; set; } = null!;
+    public DbSet<MapDataMetadata> MapDataMetadata { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);
@@ -38,6 +40,7 @@ public sealed class MetadataContext(DbContextOptions options) : DbContext(option
         modelBuilder.Entity<NpcMetadata>(ConfigureNpcMetadata);
         modelBuilder.Entity<MapMetadata>(ConfigureMapMetadata);
         modelBuilder.Entity<MapEntity>(ConfigureMapEntity);
+        modelBuilder.Entity<MapDataMetadata>(ConfigureMapData);
         modelBuilder.Entity<PetMetadata>(ConfigurePetMetadata);
         modelBuilder.Entity<QuestMetadata>(ConfigureQuestMetadata);
         modelBuilder.Entity<RideMetadata>(ConfigureRideMetadata);
@@ -129,6 +132,11 @@ public sealed class MetadataContext(DbContextOptions options) : DbContext(option
         builder.ToTable("map-entity");
         builder.HasKey(entity => new { entity.XBlock, Id = entity.Guid });
         builder.Property(entity => entity.Block).HasJsonConversion().IsRequired();
+    }
+
+    private static void ConfigureMapData(EntityTypeBuilder<MapDataMetadata> builder) {
+        builder.ToTable("map-data");
+        builder.HasKey(entity => entity.XBlock);
     }
 
     private static void ConfigurePetMetadata(EntityTypeBuilder<PetMetadata> builder) {

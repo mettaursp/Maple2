@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Text;
 using Maple2.Database.Context;
 using Maple2.Database.Extensions;
 using Maple2.Database.Model.Metadata;
@@ -9,6 +8,8 @@ using Maple2.File.Ingest.Helpers;
 using Maple2.File.Ingest.Mapper;
 using Maple2.File.IO;
 using Maple2.File.IO.Nif;
+using Maple2.File.Parser.Flat;
+using Maple2.File.Parser.MapXBlock;
 using Maple2.File.Parser.Tools;
 using Maple2.Tools;
 using Maple2.Tools.Extensions;
@@ -137,7 +138,17 @@ NifParserHelper.ParseNif(modelReaders);
 UpdateDatabase(metadataContext, new NifMapper());
 UpdateDatabase(metadataContext, new NxsMeshMapper());
 
-UpdateDatabase(metadataContext, new MapEntityMapper(metadataContext, exportedReader));
+var index = new FlatTypeIndex(exportedReader);
+// index.CliExplorer();
+XBlockParser parser = new XBlockParser(exportedReader, index);
+
+UpdateDatabase(metadataContext, new MapEntityMapper(metadataContext, exportedReader, parser));
+
+MapDataMapper mapDataMapper = new MapDataMapper(metadataContext, exportedReader, parser);
+
+UpdateDatabase(metadataContext, mapDataMapper);
+
+mapDataMapper.ReportStats();
 //if (!skipNavmesh) {
 //    _ = new NavMeshMapper(metadataContext, exportedReader);
 //}
